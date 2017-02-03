@@ -37,7 +37,7 @@ git clone https://github.com/readTheLine/java_command_line_app.git
   
 ####Run the build-run script
 Next, `cd` into the project directory, and simply run the `build-run.cmd` script. It'll automatically 
-compile the .java files into .class files, compile the .class files into a JAR, and then run the app
+compile the `.java` files into `.class` files, compile the `.class` files into a `.jar`, and then run the app
 from JAR file.
 ```
 build-run.cmd
