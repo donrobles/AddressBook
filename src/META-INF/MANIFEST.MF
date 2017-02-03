@@ -1,4 +1,5 @@
 Manifest-Version: 1.0
-Class-Path: out
 Created-By: Don Robles
+Build-Jdk: 1.7
+Class-Path: out;
 Main-Class: addressbook.AddressBook

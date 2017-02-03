@@ -13,6 +13,8 @@ public class AddressBook implements AddressInterface {
 
     public static void main(String[] args) {
         AddressBook app = new AddressBook();
+        AddressBookConn db = new AddressBookConn();
+        db.createDB();
         processInput(app, System.in, System.out);
     }
     /*
@@ -20,7 +22,7 @@ public class AddressBook implements AddressInterface {
 	 * (See TestConsoleInteraction)
 	 */
 
-    public static void processInput(AddressBook app, InputStream inputStream, PrintStream outputStream) {
+    private static void processInput(AddressBook app, InputStream inputStream, PrintStream outputStream) {
         outputStream.print(app.createMenu());
         boolean appRunning = true;
         Scanner in = new Scanner(inputStream);
