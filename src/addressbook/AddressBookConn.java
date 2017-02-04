@@ -11,7 +11,7 @@ import java.sql.Statement;
 class AddressBookConn {
 
     private static final String DROP_TABLES =
-            "DROP TABLE EMAIL_ADDRESSES, USER_INFO, PHONE_NUMBERS;";
+            "DROP TABLE IF EXISTS EMAIL_ADDRESSES, USER_INFO, PHONE_NUMBERS;";
     private static final String USER_INFO =
             "CREATE TABLE USER_INFO (USER_ID INTEGER AUTO_INCREMENT PRIMARY KEY NOT NULL, FIRST_NAME INTEGER, LAST_NAME INTEGER);";
     private static final String EMAIL_ADDESSES =
@@ -26,9 +26,16 @@ class AddressBookConn {
 
     void createDB() {
         try {
-            Connection conn = DriverManager.getConnection("jdbc:h2:mem:", "testUser", "te$tP@ss^Or|)");
+            // TODO: Change the connection URL from "jdbc:h2:~/addressbook" to "jdbc:h2:mem:" when app is complete.
+            // Get a connection to an in-memory H2 DB that exists only for the duration of tha application.
+            Connection conn = DriverManager.getConnection("jdbc:h2:~/addressbook", "testUser", "te$tP@ss^Or|)");
             classSt = conn.createStatement();
-            classSt.execute(USER_INFO + PHONE_NUMBERS + EMAIL_ADDESSES + FOREIGN_KEYS);
+            // TODO: Removed the DROP_TABLE SQL statement when switching the H2 DB from an embedded to in-memory DB.
+            classSt.execute(DROP_TABLES);
+            classSt.execute(USER_INFO);
+            classSt.execute(EMAIL_ADDESSES);
+            classSt.execute(PHONE_NUMBERS);
+            classSt.execute(FOREIGN_KEYS);
             System.out.println("Table created successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
