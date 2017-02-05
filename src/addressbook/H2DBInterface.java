@@ -2,6 +2,8 @@ package addressbook;
 
 /**
  * Created by Don Robles on 2/4/2017 with IntelliJ IDEA.
+ * <p>
+ * This interface contains the base SQL statements that the H2 DB will use.
  */
 public interface H2DBInterface {
 
