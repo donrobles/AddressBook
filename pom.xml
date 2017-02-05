@@ -8,6 +8,11 @@
     <artifactId>AddressBook</artifactId>
     <version>1.0</version>
 
+    <!-- Versions to use -->
+    <properties>
+        <jdk.version>1.7</jdk.version>
+    </properties>
+
     <!-- Output to jar format -->
     <packaging>jar</packaging>
 
@@ -24,10 +29,11 @@
             <version>5.2.6.Final</version>
         </dependency>
     </dependencies>
-    <build>
-        <finalName>dateutils</finalName>
-        <plugins>
 
+    <!-- Build setup for compiling app into executable JAR file. -->
+    <build>
+        <finalName>AddressBook</finalName>
+        <plugins>
             <!-- download source code in Eclipse, best practice -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -39,7 +45,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Set a JDK compiler level -->
+            <!-- Set a compiler level -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -55,17 +61,39 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <!-- DO NOT include log4j.properties file in your Jar -->
                     <excludes>
                         <exclude>**/log4j.properties</exclude>
                     </excludes>
                     <archive>
                         <manifest>
+                            <addClasspath>true</addClasspath>
                             <!-- Jar file entry point -->
-                            <mainClass>com.mkyong.core.utils.App</mainClass>
+                            <mainClass>runner.AddressBookRunner</mainClass>
+                            <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+
+            <!-- Copy project dependency -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <!-- exclude junit, we need runtime dependency only -->
+                            <includeScope>runtime</includeScope>
+                            <outputDirectory>${project.build.directory}/dependency-jars/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
