@@ -3,6 +3,12 @@ This is basic command line Java application that will let you create an in memor
 book record, and allow you to search the address book by first/last name, displaying any
 matching records.
 
+##Dependencies
+In order to build this project, you must have [**JDK 7**](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html#jdk-7u80-oth-JPR) 
+installed, as well having the various environment variables set accordingly.
+
+You must also have [**Maven**](http://maven.apache.org/download.cgi) installed to be able to use the Maven commands (`mvn`).
+
 ##Test Inputs
 The application should be able to fulfill the following command...
 
@@ -35,12 +41,12 @@ git init
 git clone https://github.com/readTheLine/java_command_line_app.git
 ```
   
-####Run the build-run script
-Next, `cd` into the project directory, and simply run the `build-run.cmd` script. It'll automatically 
-compile the `.java` files into `.class` files, compile the `.class` files into a `.jar`, and then run the app
-from JAR file.
+####Run Maven build
+Next, `cd` into the project directory, and simply run `mvn clean install`. It'll automatically read 
+through the `pom.xml` file, download any dependencies, and then package the `.class` files into a JAR
+with a the apps classpath set to `dependency-jars\`, where unzipped dependencies will be stored.  
 ```
-build-run.cmd
+mvn clean install
 ```
 
 ####You're done
