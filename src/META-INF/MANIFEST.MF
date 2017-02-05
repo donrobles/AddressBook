@@ -2,4 +2,4 @@ Manifest-Version: 1.0
 Created-By: Don Robles
 Build-Jdk: 1.7
 Class-Path: out;
-Main-Class: addressbook.AddressBook
+Main-Class: runner.AddressBookRunner

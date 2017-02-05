@@ -1,4 +1,4 @@
-package addressbook;
+package runner;
 
 import java.sql.*;
 
@@ -12,9 +12,9 @@ class H2DB implements H2DBInterface {
 
     void createDB() {
         try {
-            // TODO: Change the connection URL from "jdbc:h2:~/addressbook" to "jdbc:h2:mem:" when app is complete.
+            // TODO: Change the connection URL from "jdbc:h2:~/runner" to "jdbc:h2:mem:" when app is complete.
             // Get a connection to an in-memory H2 DB that exists only for the duration of tha application.
-            Connection conn = DriverManager.getConnection("jdbc:h2:~/addressbook", "testUser", "te$tP@ss^Or|)");
+            Connection conn = DriverManager.getConnection("jdbc:h2:~/runner", "testUser", "te$tP@ss^Or|)");
             classSt = conn.createStatement();
             // TODO: Removed the DROP_TABLE SQL statement when switching the H2 DB from an embedded to in-memory DB.
             classSt.execute(DROP_TABLES);
