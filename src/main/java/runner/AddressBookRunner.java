@@ -1,4 +1,4 @@
-package addressbook;
+package runner;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -7,18 +7,18 @@ import java.util.Scanner;
 /**
  * Created by Don Robles on 2/2/2017 with IntelliJ IDEA.
  */
-public class AddressBook implements AddressInterface {
+public class AddressBookRunner implements AddressInterface {
 
     private static Utils util = new Utils();
 
     public static void main(String[] args) {
-        AddressBook app = new AddressBook();
+        AddressBookRunner app = new AddressBookRunner();
         H2DB db = new H2DB();
         db.createDB(); //Create the in-memory DB.
         processInput(app, System.in, System.out);
     }
 
-    private static void processInput(AddressBook app, InputStream inputStream, PrintStream outputStream) {
+    private static void processInput(AddressBookRunner app, InputStream inputStream, PrintStream outputStream) {
         outputStream.print(app.createMenu());
         boolean appRunning = true;
         Scanner in = new Scanner(inputStream);

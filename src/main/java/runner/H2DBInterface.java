@@ -1,4 +1,4 @@
-package addressbook;
+package runner;
 
 /**
  * Created by Don Robles on 2/4/2017 with IntelliJ IDEA.
