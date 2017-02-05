@@ -5,19 +5,8 @@ import java.sql.*;
 /**
  * Created by Don Robles on 2/3/2017 with IntelliJ IDEA.
  */
-class AddressBookConn {
+class H2DB implements H2DBInterface {
 
-    private static final String DROP_TABLES =
-            "DROP TABLE IF EXISTS EMAIL_ADDRESSES, USER_INFO, PHONE_NUMBERS;";
-    private static final String USER_INFO =
-            "CREATE TABLE USER_INFO (USER_ID INTEGER AUTO_INCREMENT PRIMARY KEY, FIRST_NAME VARCHAR(45), LAST_NAME VARCHAR(45));";
-    private static final String EMAIL_ADDESSES =
-            "CREATE TABLE EMAIL_ADDRESSES (EMAIL_ADDRESS_ID INTEGER AUTO_INCREMENT PRIMARY KEY, EMAIL_ADDRESS VARCHAR(45));";
-    private static final String PHONE_NUMBERS =
-            "CREATE TABLE PHONE_NUMBERS (PHONE_NUMBER_ID INTEGER AUTO_INCREMENT PRIMARY KEY, PHONE_NUMBER VARCHAR(12));";
-    private static final String FOREIGN_KEYS =
-            "ALTER TABLE PHONE_NUMBERS ADD FOREIGN KEY (PHONE_NUMBER_ID) REFERENCES USER_INFO (USER_ID);" +
-                    "ALTER TABLE EMAIL_ADDRESSES ADD FOREIGN KEY (EMAIL_ADDRESS_ID) REFERENCES USER_INFO (USER_ID);";
 
     private Statement classSt;
 
@@ -32,7 +21,6 @@ class AddressBookConn {
             classSt.execute(USER_INFO);
             classSt.execute(EMAIL_ADDESSES);
             classSt.execute(PHONE_NUMBERS);
-            classSt.execute(FOREIGN_KEYS);
 
             classSt.execute("CREATE ALIAS IF NOT EXISTS getVersion FOR \"org.h2.engine.Constants.getVersion\"");
             ResultSet rs;

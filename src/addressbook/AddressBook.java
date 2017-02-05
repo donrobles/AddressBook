@@ -13,7 +13,7 @@ public class AddressBook implements AddressInterface {
 
     public static void main(String[] args) {
         AddressBook app = new AddressBook();
-        AddressBookConn db = new AddressBookConn();
+        H2DB db = new H2DB();
         db.createDB();
         processInput(app, System.in, System.out);
     }
