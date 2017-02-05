@@ -42,12 +42,15 @@ git clone https://github.com/readTheLine/java_command_line_app.git
 ```
   
 ####Run Maven build
-Next, `cd` into the project directory, and simply run `mvn clean install`. It'll automatically read 
-through the `pom.xml` file, download any dependencies, and then package the `.class` files into a JAR
-with a the apps classpath set to `dependency-jars\`, where unzipped dependencies will be stored.  
+Next, `cd` into the project directory, and simply run the `run.cmd` script to build/run the app.
 ```
-mvn clean install
+run.cmd
 ```
+This script will run `mvn clean install` to read through the `pom.xml` file, download dependencies, 
+and then package the `.class` files into a JAR with a the apps classpath set to `dependency-jars\`, 
+where unzipped dependencies will be stored.
+
+After that, the `java -jar target\AddressBook.jar` command will run, which starts the Java app.  
 
 ####You're done
 There's nothing more you need to do in order to get this application running. Hope it helps you out!
