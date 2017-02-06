@@ -13,8 +13,6 @@ public class AddressBookRunner implements AddressInterface {
 
     public static void main(String[] args) {
         AddressBookRunner app = new AddressBookRunner();
-        H2DB db = new H2DB();
-        db.createDB(); //Create the in-memory DB.
         processInput(app, System.in, System.out);
     }
 
