@@ -23,17 +23,15 @@ public class AddressBookRunner implements AddressInterface {
         while (appRunning) {
             String userInput = "";
             if (in.hasNext()) {
+                //Grab tht user input.
                 userInput = in.nextLine().trim();
-                System.out.println(userInput);
             }
-            StringBuilder sb = new StringBuilder();
-            sb.append(userInput);
-
-            //Quit out the application.
+            //Quit out the application if "q" was entered.
             if ("q".equals(userInput)) {
                 appRunning = false;
             }
-            outputStream.print(sb.toString());
+            util.getPhoneNumbersInputs(userInput);
+
         }
         in.close();
     }
