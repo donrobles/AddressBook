@@ -16,6 +16,7 @@ public class Utils implements BaseInterface {
     private static final String WHITE_SPACE_CHAR = "\\s+";
     private String[] parsedInput;
 
+
     boolean validateName(String userInput) {
         return userInput.matches(VALID_NAME);
     }

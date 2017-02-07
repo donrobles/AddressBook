@@ -11,14 +11,7 @@ public class UserInfo {
     private ArrayList<String> phoneNumbers = new ArrayList<>();
     private ArrayList<String> emailAddresses = new ArrayList<>();
 
-    UserInfo(String firstName, String lastName, String phoneNumber, String emailAddress) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        phoneNumbers.add(phoneNumber);
-        emailAddresses.add(emailAddress);
-    }
-
-    UserInfo(String firstName, String lastName, ArrayList<String> phoneNumbers, ArrayList<String> emailAddresses) {
+    public UserInfo(String firstName, String lastName, ArrayList<String> phoneNumbers, ArrayList<String> emailAddresses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumbers = phoneNumbers;

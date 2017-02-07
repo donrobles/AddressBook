@@ -29,19 +29,22 @@ public class AddressBookRunner implements BaseInterface {
         while (appRunning) {
             String userInput = ""; // Create a new userInput for each loop iteration.
             if (in.hasNext()) {
-                //Grab tht user input.
+                // Grab tht user input.
                 userInput = in.nextLine().trim();
-                //Quit out the application if "q" was entered.
+                // Quit out the application if "q" was entered.
                 if ("q".equals(userInput)) {
                     break; // End the loop to stop the programn.
                 }
             }
             try {
+                // Use the Util to parse through the input.
                 util.parseInput(userInput);
                 if (ADD.equalsIgnoreCase(util.getCommand())) {
-                    System.out.println("Add");
-                    util.getPhoneNumbers();
-                    util.getEmails();
+                    // Build the User entry using the util
+                    UserInfo newUserEntry = new UserInfo(util.getFirstName(), util.getLastName(), util.getPhoneNumbers(), util.getEmails());
+                    addressBook.add(newUserEntry);
+                    outputStream.print("The entry for \"" + newUserEntry.getFirstName() + "\" \"" +
+                            newUserEntry.getLastName() + "\" has been added!");
                 } else if (SEARCH.equalsIgnoreCase(util.getCommand())) {
                     System.out.println("Search");
                 }
