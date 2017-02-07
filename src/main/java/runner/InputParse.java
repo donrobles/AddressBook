@@ -1,6 +1,7 @@
 package runner;
 
 import base.BaseInterface;
+import com.sun.media.sound.InvalidFormatException;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class InputParse implements BaseInterface {
     private static final String VALID_EMAIL = "[\\w-]+@([\\w-]+\\.)+[\\w-]+";
     private static final String WHITE_SPACE_CHAR = "\\s+";
     private String[] parsedInput;
+    private ArrayList<String> phoneNumbers = new ArrayList<>(), emailsAddresses = new ArrayList<>();
+    private String command, firstName, lastName;
 
 
     boolean validateName(String userInput) {
@@ -26,83 +29,68 @@ public class InputParse implements BaseInterface {
     }
 
 
-    public void parseInput(String fullInput) throws InvalidParameterException {
-        String command = "";
+    public void parseInput(String fullInput) throws InvalidParameterException, InvalidFormatException {
         // Check if the command given was ADD or SEARCH, and remove that part from the String.
         if (fullInput.substring(0, 3).equalsIgnoreCase(ADD)) {
-            command = ADD;
-            fullInput = fullInput.substring(4, fullInput.length());
+            this.command = ADD;
+            fullInput = fullInput.length() >= 4 ? fullInput.substring(4, fullInput.length()) : "";
         } else if (fullInput.substring(0, 6).equalsIgnoreCase(SEARCH)) {
-            command = SEARCH;
-            fullInput = fullInput.substring(7, fullInput.length());
-        } else {
-            throw new InvalidParameterException("The command given wasn't ADD or SEARCH.");
-        }
+            this.command = SEARCH;
+            fullInput = fullInput.length() >= 7 ? fullInput.substring(7, fullInput.length()) : "";
+        } else
+            throw new InvalidParameterException("The command you entered was invalid, please use only ADD or SEARCH. \n\n");
 
-        // Split the remaining input
-        String[] initInputFormat = fullInput.split(COMMA);
-        this.parsedInput = new String[initInputFormat.length + 1];
-        this.parsedInput[0] = command;
-        int i = 1;
-        for (String input : initInputFormat) {
-            this.parsedInput[i] = input.replaceAll(WHITE_SPACE_CHAR, EMPTY_STRING);
-            i++;
-        }
+        //There should still be something in the String after the given command.
+        if (fullInput.length() > 0) {
+            // Split the remaining inputs
+            String[] initInputFormat = fullInput.split(COMMA);
+            firstName = removeWhiteSpace(initInputFormat[0]);
+            lastName = removeWhiteSpace(initInputFormat[1]);
+            //TODO: Simplify the whole class by setting firstName, lastName, phoneNumbers, and emailAddresses Lists here.
+            int loopPosition = 1; // Keep track of where we are in the array, to avoid unneeded reads.
+            // Grab the phone numbers, which should begin at index 3, or StringArray[2];
+            for (int i = 2; i < initInputFormat.length; i++) {
+                String entry = removeWhiteSpace(initInputFormat[i]);
+                if (entry.matches(VALID_PHONE_NUMBER)) {
+                    phoneNumbers.add(entry);
+                    loopPosition++;
+                } else {
+                    loopPosition++;
+                    break;
+                }
+            }
+            // Now grab the remaining entries, which should be email addresses.
+            for (; loopPosition < initInputFormat.length; loopPosition++) {
+                String entry = removeWhiteSpace(initInputFormat[loopPosition]);
+                if (entry.matches(VALID_EMAIL)) {
+                    emailsAddresses.add(entry);
+                }
+            }
+        } else
+            throw new InvalidFormatException("Please include at least a \"first_name, last_name\" in you ADD or SEARCH command. \n\n");
     }
 
-    /*
-    Grab the command for the parsed input, which will be the first entry.
-    */
+    private String removeWhiteSpace(String input) {
+        return input.replaceAll(WHITE_SPACE_CHAR, EMPTY_STRING);
+    }
+
     public String getCommand() {
-        return parsedInput[0];
+        return command;
     }
 
-    /*
-    Grab the command for the parsed input, which will be the second entry.
-     */
     public String getFirstName() {
-        return parsedInput[1];
+        return firstName;
     }
 
-    /*
-    Grab the command for the parsed input, which will be the third entry.
-     */
     public String getLastName() {
-        return parsedInput[2];
+        return lastName;
     }
 
     public ArrayList<String> getPhoneNumbers() {
-        ArrayList<String> allPhoneNumbers = new ArrayList<>();
-
-        int i = 0;
-        for (String entry : this.parsedInput) {
-            //Skip the first three entries. They're COMMAND, FIRST NAME, and LAST NAME.`
-            if (i == 0 || i == 1 || i == 2) {
-                i++;
-                continue;
-            }
-            if (entry.matches(VALID_PHONE_NUMBER)) {
-                allPhoneNumbers.add(entry);
-            } else {
-                //Once there are no more numbers, end the loop.
-                break;
-            }
-        }
-        return allPhoneNumbers;
+        return phoneNumbers;
     }
 
     public ArrayList<String> getEmails() {
-        ArrayList<String> allEmails = new ArrayList<>();
-
-        //Iterate through the array in reverse since emails will be at the end.
-        for (int i = this.parsedInput.length - 1; i > 0; i--) {
-            if (this.parsedInput[i].matches(VALID_EMAIL)) {
-                allEmails.add(this.parsedInput[i]);
-            } else {
-                //Once there are no more emails, end the loop.
-                break;
-            }
-        }
-        return allEmails;
+        return emailsAddresses;
     }
 }

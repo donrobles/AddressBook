@@ -2,6 +2,7 @@ package runner;
 
 import addressbook.UserInfo;
 import base.BaseInterface;
+import com.sun.media.sound.InvalidFormatException;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -51,8 +52,10 @@ public class AddressBookRunner implements BaseInterface {
                     } else if (SEARCH.equalsIgnoreCase(inputParser.getCommand())) {
                         System.out.println("Search");
                     }
+                } catch (InvalidFormatException ex) {
+                    outputStream.print(ex.toString());
                 } catch (InvalidParameterException ex) {
-                    outputStream.print("The command you entered was invalid, please use only ADD or SEARCH. \n\n");
+                    outputStream.print(ex.toString());
                 } catch (Exception ex) {
                     outputStream.print("Sorry, there was an unforeseen error with you input. Please try again. \n\n");
                 }
