@@ -41,6 +41,7 @@ public class AddressBookRunner implements BaseInterface {
                 if (ADD.equalsIgnoreCase(util.getCommand())) {
                     System.out.println("Add");
                     util.getPhoneNumbers();
+                    util.getEmails();
                 } else if (SEARCH.equalsIgnoreCase(util.getCommand())) {
                     System.out.println("Search");
                 }

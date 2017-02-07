@@ -12,6 +12,7 @@ public class Utils implements BaseInterface {
 
     private static final String VALID_NAME = "^[a-zA-Z]+$";
     private static final String VALID_PHONE_NUMBER = "^\\d{3}-\\d{3}-\\d{4}$";
+    private static final String VALID_EMAIL = "[\\w-]+@([\\w-]+\\.)+[\\w-]+";
     private static final String WHITE_SPACE_CHAR = "\\s+";
     private String[] parsedInput;
 
@@ -79,5 +80,21 @@ public class Utils implements BaseInterface {
 
         System.out.println(allPhoneNumbers.toString());
         return allPhoneNumbers;
+    }
+
+    public ArrayList<String> getEmails() {
+        ArrayList<String> allEmails = new ArrayList<>();
+
+        //Iterate through the array in reverse since emails will be at the end.
+        for (int i = this.parsedInput.length - 1; i > 0; i--) {
+            if (this.parsedInput[i].matches(VALID_EMAIL)) {
+                allEmails.add(this.parsedInput[i]);
+            } else {
+                //Once there are no more emails, end the loop.
+                break;
+            }
+        }
+        System.out.println(allEmails.toString());
+        return allEmails;
     }
 }
