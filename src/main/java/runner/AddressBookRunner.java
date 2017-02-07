@@ -15,8 +15,9 @@ import java.util.Scanner;
  */
 public class AddressBookRunner implements BaseInterface {
 
-    private static InputParse inputParser = new InputParse();
+    private static InputParser inputParser = new InputParser();
     private static ArrayList<UserInfo> addressBook = new ArrayList<>();
+    private static AddressBookSearcher searcher = new AddressBookSearcher(addressBook);
 
     public static void main(String[] args) {
         AddressBookRunner app = new AddressBookRunner();
@@ -51,6 +52,7 @@ public class AddressBookRunner implements BaseInterface {
                                 newUserEntry.getLastName() + "\" has been added! \n\n");
                     } else if (SEARCH.equalsIgnoreCase(inputParser.getCommand())) {
                         System.out.println("Search");
+                        searcher.returnABInfo();
                     }
                 } catch (InvalidFormatException | InvalidParameterException ex) {
                     outputStream.print(ex.getMessage());
