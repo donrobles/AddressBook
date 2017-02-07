@@ -1,6 +1,7 @@
 package runner;
 
 import addressbook.UserInfo;
+import base.BaseInterface;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 /**
  * Created by Don Robles on 2/2/2017 with IntelliJ IDEA.
  */
-public class AddressBookRunner implements AddressInterface {
+public class AddressBookRunner implements BaseInterface {
 
     private static Utils util = new Utils();
     private static ArrayList<UserInfo> addressBook = new ArrayList<>();
@@ -36,10 +37,17 @@ public class AddressBookRunner implements AddressInterface {
                 }
             }
             try {
-                util.setFullInput(userInput);
+                util.parseInput(userInput);
+                if (ADD.equalsIgnoreCase(util.getCommand())) {
+                    System.out.println("Add");
+                } else if (SEARCH.equalsIgnoreCase(util.getCommand())) {
+                    System.out.println("Search");
+                }
                 //util.getPhoneNumbersInputs(userInput);
             } catch (InvalidParameterException ex) {
-                outputStream.print("The command you entered was invalid, please use only ADD or SEARCH.");
+                outputStream.print("The command you entered was invalid, please use only ADD or SEARCH. \n\n");
+            } catch (Exception ex) {
+                outputStream.print("Sorry, there was an inforseen error with you input. Please try again. \n\n");
             }
         }
         in.close();

@@ -1,18 +1,18 @@
 package runner;
 
+import base.BaseInterface;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 /**
  * Created by Don Robles on 2/2/2017 with IntelliJ IDEA.
  */
-public class Utils {
+public class Utils implements BaseInterface {
 
     private static final String VALID_NAME = "^[a-zA-Z]+$";
     private static final String VALID_PHONE_NUMBER = "^\\d{3}-\\d{3}-\\d{4}$";
     private static final String WHITE_SPACE_CHAR = "\\s+";
-    private static final String ADD = "ADD";
-    private static final String SEARCH = "SEARCH";
     private String[] fullInput;
 
     boolean validateName(String userInput) {
@@ -23,7 +23,8 @@ public class Utils {
         return userInput.matches(VALID_PHONE_NUMBER);
     }
 
-    public void setFullInput(String fullInput) throws InvalidParameterException {
+
+    public void parseInput(String fullInput) throws InvalidParameterException {
         String command = "";
         // Check if the command given was ADD or SERACH, and remove that part from the String.
         if (fullInput.substring(0, 3).equalsIgnoreCase(ADD)) {
@@ -46,12 +47,8 @@ public class Utils {
         }
     }
 
-    public String grabCommand() {
-        return "";
-    }
-
-    public String getCommand(String userInput) {
-        return "";
+    public String getCommand() {
+        return fullInput[0];
     }
 
     public ArrayList<String> getPhoneNumbersInputs(String userInput) {
