@@ -28,7 +28,7 @@ public class Utils implements BaseInterface {
 
     public void parseInput(String fullInput) throws InvalidParameterException {
         String command = "";
-        // Check if the command given was ADD or SERACH, and remove that part from the String.
+        // Check if the command given was ADD or SEARCH, and remove that part from the String.
         if (fullInput.substring(0, 3).equalsIgnoreCase(ADD)) {
             command = ADD;
             fullInput = fullInput.substring(4, fullInput.length());
@@ -39,24 +39,34 @@ public class Utils implements BaseInterface {
             throw new InvalidParameterException("The command given wasn't ADD or SEARCH.");
         }
 
-        String[] initInputFormat = fullInput.split(",");
+        // Split the remaining input
+        String[] initInputFormat = fullInput.split(COMMA);
         this.parsedInput = new String[initInputFormat.length + 1];
         this.parsedInput[0] = command;
         int i = 1;
         for (String input : initInputFormat) {
-            this.parsedInput[i] = input.replaceAll(WHITE_SPACE_CHAR, "");
+            this.parsedInput[i] = input.replaceAll(WHITE_SPACE_CHAR, EMPTY_STRING);
             i++;
         }
     }
 
+    /*
+    Grab the command for the parsed input, which will be the first entry.
+    */
     public String getCommand() {
         return parsedInput[0];
     }
 
+    /*
+    Grab the command for the parsed input, which will be the second entry.
+     */
     public String getFirstName() {
         return parsedInput[1];
     }
 
+    /*
+    Grab the command for the parsed input, which will be the third entry.
+     */
     public String getLastName() {
         return parsedInput[2];
     }
@@ -78,8 +88,6 @@ public class Utils implements BaseInterface {
                 break;
             }
         }
-
-        System.out.println(allPhoneNumbers.toString());
         return allPhoneNumbers;
     }
 
@@ -95,7 +103,6 @@ public class Utils implements BaseInterface {
                 break;
             }
         }
-        System.out.println(allEmails.toString());
         return allEmails;
     }
 }

@@ -6,4 +6,6 @@ package base;
 public interface BaseInterface {
     String ADD = "ADD";
     String SEARCH = "SEARCH";
+    String EMPTY_STRING = "";
+    String COMMA = ",";
 }

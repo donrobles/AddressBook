@@ -42,13 +42,14 @@ public class AddressBookRunner implements BaseInterface {
                 if (ADD.equalsIgnoreCase(util.getCommand())) {
                     // Build the User entry using the util
                     UserInfo newUserEntry = new UserInfo(util.getFirstName(), util.getLastName(), util.getPhoneNumbers(), util.getEmails());
+                    // Add the User to the AddressBook.
                     addressBook.add(newUserEntry);
+                    // Output the successful addition to the AddressBook.
                     outputStream.print("The entry for \"" + newUserEntry.getFirstName() + "\" \"" +
                             newUserEntry.getLastName() + "\" has been added!");
                 } else if (SEARCH.equalsIgnoreCase(util.getCommand())) {
                     System.out.println("Search");
                 }
-                //util.getPhoneNumbersInputs(userInput);
             } catch (InvalidParameterException ex) {
                 outputStream.print("The command you entered was invalid, please use only ADD or SEARCH. \n\n");
             } catch (Exception ex) {
@@ -58,6 +59,9 @@ public class AddressBookRunner implements BaseInterface {
         in.close();
     }
 
+    /*
+    Outputs the menu for the user to get an understanding of what the application does.
+     */
     private String createMenu() {
         StringBuilder sb = new StringBuilder();
         sb.append("Welcome to the UserInfo app! \n\n");
