@@ -1,6 +1,6 @@
 package runner;
 
-import addressbook.AddressBook;
+import addressbook.UserInfo;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class AddressBookRunner implements AddressInterface {
 
     private static Utils util = new Utils();
-    private static ArrayList<AddressBook> addressBook = new ArrayList<>();
+    private static ArrayList<UserInfo> addressBook = new ArrayList<>();
 
     public static void main(String[] args) {
         AddressBookRunner app = new AddressBookRunner();
@@ -30,10 +30,10 @@ public class AddressBookRunner implements AddressInterface {
             if (in.hasNext()) {
                 //Grab tht user input.
                 userInput = in.nextLine().trim();
-            }
-            //Quit out the application if "q" was entered.
-            if ("q".equals(userInput)) {
-                appRunning = false;
+                //Quit out the application if "q" was entered.
+                if ("q".equals(userInput)) {
+                    break; // End the loop to stop the programn.
+                }
             }
             try {
                 util.setFullInput(userInput);
@@ -48,13 +48,14 @@ public class AddressBookRunner implements AddressInterface {
 
     private String createMenu() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Welcome to the AddressBook app! \n\n");
+        sb.append("Welcome to the UserInfo app! \n\n");
         sb.append("You can ADD user entries using the following format... \n");
         sb.append("\"add {First_Name}, {Last_Name}, {XXX-XXX-XXXX}, {...}, {email@address.domain}, {...}\" \n");
         sb.append("NOTE: You must at least specify a first name AND last name. Phone numbers and emails are optional. \n\n");
         sb.append("After records have been entered, you can SEARCH for users by first OR last name... \n");
         sb.append("\"search {First_Name}\" OR \"search {Last_Name}\" \n");
         sb.append("NOTE: You can search with a last name OR a first name, not both. \n\n");
+        sb.append("To quit the application, enter \"q\".\n\n");
         sb.append("You may begin submitting entries now. \n\n");
         return sb.toString();
     }

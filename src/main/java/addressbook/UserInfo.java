@@ -5,20 +5,20 @@ import java.util.ArrayList;
 /**
  * Created by Don Robles on 2/4/2017 with IntelliJ IDEA.
  */
-public class AddressBook {
+public class UserInfo {
 
     private String firstName = "", lastName = "";
     private ArrayList<String> phoneNumbers = new ArrayList<>();
     private ArrayList<String> emailAddresses = new ArrayList<>();
 
-    AddressBook(String firstName, String lastName, String phoneNumber, String emailAddress) {
+    UserInfo(String firstName, String lastName, String phoneNumber, String emailAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         phoneNumbers.add(phoneNumber);
         emailAddresses.add(emailAddress);
     }
 
-    AddressBook(String firstName, String lastName, ArrayList<String> phoneNumbers, ArrayList<String> emailAddresses) {
+    UserInfo(String firstName, String lastName, ArrayList<String> phoneNumbers, ArrayList<String> emailAddresses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumbers = phoneNumbers;
