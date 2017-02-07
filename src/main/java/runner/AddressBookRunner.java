@@ -52,10 +52,8 @@ public class AddressBookRunner implements BaseInterface {
                     } else if (SEARCH.equalsIgnoreCase(inputParser.getCommand())) {
                         System.out.println("Search");
                     }
-                } catch (InvalidFormatException ex) {
-                    outputStream.print(ex.toString());
-                } catch (InvalidParameterException ex) {
-                    outputStream.print(ex.toString());
+                } catch (InvalidFormatException | InvalidParameterException ex) {
+                    outputStream.print(ex.getMessage());
                 } catch (Exception ex) {
                     outputStream.print("Sorry, there was an unforeseen error with you input. Please try again. \n\n");
                 }
