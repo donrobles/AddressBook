@@ -1,4 +1,4 @@
-package runner;
+package addressbook;
 
 import base.BaseInterface;
 import com.sun.media.sound.InvalidFormatException;

@@ -1,4 +1,4 @@
-package runner;
+package addressbook;
 
 import addressbook.UserInfo;
 
@@ -19,7 +19,7 @@ public class AddressBookSearcher {
         StringBuilder sb = new StringBuilder();
         sb.append("Your search for criteria were... \n");
         sb.append("Name Entry: ").append(nameInput).append("\n");
-        sb.append("These are the records found...\n");
+        sb.append("These were the records found...\n");
         for (UserInfo entry : this.addressBook) {
             if (nameInput.equalsIgnoreCase(entry.getFirstName())) {
                 grabAllUserInfo(sb, entry);
@@ -27,6 +27,7 @@ public class AddressBookSearcher {
                 grabAllUserInfo(sb, entry);
             }
         }
+        sb.append("\n");
         return sb.toString();
     }
 
@@ -38,6 +39,6 @@ public class AddressBookSearcher {
         for (String email : entry.getEmailAddresses()) {
             sb.append(email).append(" ");
         }
-        sb.append("\n\n");
+        sb.append("\n");
     }
 }
