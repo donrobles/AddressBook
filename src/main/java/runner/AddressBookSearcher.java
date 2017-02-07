@@ -15,24 +15,29 @@ public class AddressBookSearcher {
         this.addressBook = addresBook;
     }
 
-    public ArrayList<String> searchAddressBook(String firstName, String lastName) {
-
-        return null;
+    public String grabMatchRecords(String nameInput) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Your search for criteria were... \n");
+        sb.append("Name Entry: ").append(nameInput).append("\n");
+        sb.append("These are the records found...\n");
+        for (UserInfo entry : this.addressBook) {
+            if (nameInput.equalsIgnoreCase(entry.getFirstName())) {
+                grabAllUserInfo(sb, entry);
+            } else if (nameInput.equalsIgnoreCase(entry.getLastName())) {
+                grabAllUserInfo(sb, entry);
+            }
+        }
+        return sb.toString();
     }
 
-    public void returnABInfo() {
-        for (UserInfo entry : this.addressBook) {
-            String userPhoneNumbers = "";
-            for (String phoneNumber : entry.getPhoneNumbers()) {
-                userPhoneNumbers += "[" + phoneNumber + "] ";
-            }
-
-            String userEmails = "";
-            for (String email : entry.getEmailAddresses()) {
-                userEmails += "[" + email + "] ";
-            }
-            System.out.println("Address book contains: " + entry.getFirstName() + " " + entry.getLastName() + " " +
-                    userPhoneNumbers + " " + userEmails);
+    private void grabAllUserInfo(StringBuilder sb, UserInfo entry) {
+        sb.append(entry.getFirstName()).append(" ").append(entry.getLastName()).append(" ");
+        for (String phoneNumber : entry.getPhoneNumbers()) {
+            sb.append(phoneNumber).append(" ");
         }
+        for (String email : entry.getEmailAddresses()) {
+            sb.append(email).append(" ");
+        }
+        sb.append("\n\n");
     }
 }

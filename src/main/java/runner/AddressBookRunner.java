@@ -4,6 +4,7 @@ import addressbook.UserInfo;
 import base.BaseInterface;
 import com.sun.media.sound.InvalidFormatException;
 
+import javax.naming.InvalidNameException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.security.InvalidParameterException;
@@ -45,16 +46,17 @@ public class AddressBookRunner implements BaseInterface {
                         // Build the User entry using the inputParser
                         UserInfo newUserEntry = new UserInfo(inputParser.getFirstName(), inputParser.getLastName(),
                                 inputParser.getPhoneNumbers(), inputParser.getEmails());
+
                         // Add the User to the AddressBook.
                         addressBook.add(newUserEntry);
                         // Output the successful addition to the AddressBook.
                         outputStream.print("The entry for \"" + newUserEntry.getFirstName() + "\" \"" +
                                 newUserEntry.getLastName() + "\" has been added! \n\n");
+
                     } else if (SEARCH.equalsIgnoreCase(inputParser.getCommand())) {
-                        System.out.println("Search");
-                        searcher.returnABInfo();
+                        outputStream.print(searcher.grabMatchRecords(inputParser.getFirstName()));
                     }
-                } catch (InvalidFormatException | InvalidParameterException ex) {
+                } catch (InvalidFormatException | InvalidNameException | InvalidParameterException ex) {
                     outputStream.print(ex.getMessage());
                 } catch (Exception ex) {
                     outputStream.print("Sorry, there was an unforeseen error with you input. Please try again. \n\n");
@@ -72,7 +74,7 @@ public class AddressBookRunner implements BaseInterface {
         sb.append("Welcome to the UserInfo app! \n\n");
         sb.append("You can ADD user entries using the following format... \n");
         sb.append("\"add {First_Name}, {Last_Name}, {XXX-XXX-XXXX}, {...}, {email@address.domain}, {...}\" \n");
-        sb.append("NOTE: You must at least specify a first name AND last name. Phone numbers and emails are optional. \n\n");
+        sb.append("NOTE: You must specify a first name, last name, phone number, and email. \n\n");
         sb.append("After records have been entered, you can SEARCH for users by first OR last name... \n");
         sb.append("\"search {First_Name}\" OR \"search {Last_Name}\" \n");
         sb.append("NOTE: You can search with a last name OR a first name, not both. \n\n");

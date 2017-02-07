@@ -72,11 +72,10 @@ public class InputParser implements BaseInterface {
                 if (entry.matches(VALID_PHONE_NUMBER)) {
                     phoneNumbers.add(entry);
                     loopPosition++;
-                } else if (entry.matches(VALID_EMAIL)) {
+                } else {
                     loopPosition++;
                     break;
-                } else
-                    throw new InvalidFormatException("The entry \"" + entry + "\" wasn't a phone number or email. \n\n");
+                }
             }
             // Now grab the remaining entries, which should be email addresses.
             for (; loopPosition < inputArrayLength; loopPosition++) {
