@@ -13,7 +13,7 @@ public class Utils implements BaseInterface {
     private static final String VALID_NAME = "^[a-zA-Z]+$";
     private static final String VALID_PHONE_NUMBER = "^\\d{3}-\\d{3}-\\d{4}$";
     private static final String WHITE_SPACE_CHAR = "\\s+";
-    private String[] fullInput;
+    private String[] parsedInput;
 
     boolean validateName(String userInput) {
         return userInput.matches(VALID_NAME);
@@ -38,30 +38,42 @@ public class Utils implements BaseInterface {
         }
 
         String[] initInputFormat = fullInput.split(",");
-        this.fullInput = new String[initInputFormat.length + 1];
-        this.fullInput[0] = command;
+        this.parsedInput = new String[initInputFormat.length + 1];
+        this.parsedInput[0] = command;
         int i = 1;
         for (String input : initInputFormat) {
-            this.fullInput[i] = input.replaceAll(WHITE_SPACE_CHAR, "");
+            this.parsedInput[i] = input.replaceAll(WHITE_SPACE_CHAR, "");
             i++;
         }
     }
 
     public String getCommand() {
-        return fullInput[0];
+        return parsedInput[0];
     }
 
-    public ArrayList<String> getPhoneNumbersInputs(String userInput) {
-        ArrayList<String> allPhoneNumbers = null;
-        System.out.println(fullInput.toString());
+    public String getFirstName() {
+        return parsedInput[1];
+    }
 
-        for (String entry : fullInput) {
-            entry = entry.replaceAll(WHITE_SPACE_CHAR, "");
-            if (entry.matches(VALID_PHONE_NUMBER) ? true : false) {
-                if (allPhoneNumbers == null) {
-                    allPhoneNumbers = new ArrayList<>();
-                }
+    public String getLastName() {
+        return parsedInput[2];
+    }
+
+    public ArrayList<String> getPhoneNumbers() {
+        ArrayList<String> allPhoneNumbers = new ArrayList<>();
+
+        int i = 0;
+        for (String entry : this.parsedInput) {
+            //Skip the first three entries. They're COMMAND, FIRST NAME, and LAST NAME.`
+            if (i == 0 || i == 1 || i == 2) {
+                i++;
+                continue;
+            }
+            if (entry.matches(VALID_PHONE_NUMBER)) {
                 allPhoneNumbers.add(entry);
+            } else {
+                //Once there are no more numbers, end the loop.
+                break;
             }
         }
 

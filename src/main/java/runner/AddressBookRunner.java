@@ -40,6 +40,7 @@ public class AddressBookRunner implements BaseInterface {
                 util.parseInput(userInput);
                 if (ADD.equalsIgnoreCase(util.getCommand())) {
                     System.out.println("Add");
+                    util.getPhoneNumbers();
                 } else if (SEARCH.equalsIgnoreCase(util.getCommand())) {
                     System.out.println("Search");
                 }
@@ -47,7 +48,7 @@ public class AddressBookRunner implements BaseInterface {
             } catch (InvalidParameterException ex) {
                 outputStream.print("The command you entered was invalid, please use only ADD or SEARCH. \n\n");
             } catch (Exception ex) {
-                outputStream.print("Sorry, there was an inforseen error with you input. Please try again. \n\n");
+                outputStream.print("Sorry, there was an unforeseen error with you input. Please try again. \n\n");
             }
         }
         in.close();
