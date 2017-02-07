@@ -16,20 +16,6 @@
     <!-- Output to jar format -->
     <packaging>jar</packaging>
 
-    <dependencies>
-        <!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.193</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.2.6.Final</version>
-        </dependency>
-    </dependencies>
-
     <!-- Build setup for compiling app into executable JAR file. -->
     <build>
         <finalName>AddressBook</finalName>

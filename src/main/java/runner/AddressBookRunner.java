@@ -14,7 +14,7 @@ import java.util.Scanner;
  */
 public class AddressBookRunner implements BaseInterface {
 
-    private static Utils util = new Utils();
+    private static InputParse inputParser = new InputParse();
     private static ArrayList<UserInfo> addressBook = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -27,33 +27,35 @@ public class AddressBookRunner implements BaseInterface {
         boolean appRunning = true;
         Scanner in = new Scanner(inputStream);
         while (appRunning) {
-            String userInput = ""; // Create a new userInput for each loop iteration.
+            String userInput; // Create a new userInput for each loop iteration.
             if (in.hasNext()) {
-                // Grab tht user input.
-                userInput = in.nextLine().trim();
-                // Quit out the application if "q" was entered.
-                if ("q".equals(userInput)) {
-                    break; // End the loop to stop the programn.
+                try {
+                    // Grab tht user input.
+                    userInput = in.nextLine().trim();
+                    // Quit out the application if "q" was entered.
+                    if ("q".equals(userInput)) {
+                        outputStream.print("The program will now exit. \n\n");
+                        break; // End the loop to stop the programn.
+                    }
+                    // Use the Util to parse through the input.
+                    inputParser.parseInput(userInput);
+                    if (ADD.equalsIgnoreCase(inputParser.getCommand())) {
+                        // Build the User entry using the inputParser
+                        UserInfo newUserEntry = new UserInfo(inputParser.getFirstName(), inputParser.getLastName(),
+                                inputParser.getPhoneNumbers(), inputParser.getEmails());
+                        // Add the User to the AddressBook.
+                        addressBook.add(newUserEntry);
+                        // Output the successful addition to the AddressBook.
+                        outputStream.print("The entry for \"" + newUserEntry.getFirstName() + "\" \"" +
+                                newUserEntry.getLastName() + "\" has been added! \n\n");
+                    } else if (SEARCH.equalsIgnoreCase(inputParser.getCommand())) {
+                        System.out.println("Search");
+                    }
+                } catch (InvalidParameterException ex) {
+                    outputStream.print("The command you entered was invalid, please use only ADD or SEARCH. \n\n");
+                } catch (Exception ex) {
+                    outputStream.print("Sorry, there was an unforeseen error with you input. Please try again. \n\n");
                 }
-            }
-            try {
-                // Use the Util to parse through the input.
-                util.parseInput(userInput);
-                if (ADD.equalsIgnoreCase(util.getCommand())) {
-                    // Build the User entry using the util
-                    UserInfo newUserEntry = new UserInfo(util.getFirstName(), util.getLastName(), util.getPhoneNumbers(), util.getEmails());
-                    // Add the User to the AddressBook.
-                    addressBook.add(newUserEntry);
-                    // Output the successful addition to the AddressBook.
-                    outputStream.print("The entry for \"" + newUserEntry.getFirstName() + "\" \"" +
-                            newUserEntry.getLastName() + "\" has been added!");
-                } else if (SEARCH.equalsIgnoreCase(util.getCommand())) {
-                    System.out.println("Search");
-                }
-            } catch (InvalidParameterException ex) {
-                outputStream.print("The command you entered was invalid, please use only ADD or SEARCH. \n\n");
-            } catch (Exception ex) {
-                outputStream.print("Sorry, there was an unforeseen error with you input. Please try again. \n\n");
             }
         }
         in.close();

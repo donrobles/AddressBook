@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by Don Robles on 2/2/2017 with IntelliJ IDEA.
  */
-public class Utils implements BaseInterface {
+public class InputParse implements BaseInterface {
 
     private static final String VALID_NAME = "^[a-zA-Z]+$";
     private static final String VALID_PHONE_NUMBER = "^\\d{3}-\\d{3}-\\d{4}$";
