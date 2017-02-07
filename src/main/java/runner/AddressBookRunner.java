@@ -26,7 +26,7 @@ public class AddressBookRunner implements AddressInterface {
         boolean appRunning = true;
         Scanner in = new Scanner(inputStream);
         while (appRunning) {
-            String userInput = "";
+            String userInput = ""; // Create a new userInput for each loop iteration.
             if (in.hasNext()) {
                 //Grab tht user input.
                 userInput = in.nextLine().trim();
@@ -41,7 +41,6 @@ public class AddressBookRunner implements AddressInterface {
             } catch (InvalidParameterException ex) {
                 outputStream.print("The command you entered was invalid, please use only ADD or SEARCH.");
             }
-
         }
         in.close();
     }
